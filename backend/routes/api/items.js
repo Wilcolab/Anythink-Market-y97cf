@@ -54,7 +54,7 @@ router.get("/", auth.optional, function(req, res, next) {
   }
 
   if (typeof req.query.title !== "undefined") {
-    query.title = { $in: [req.query.title] }
+    query.title = req.query.title
   }
 
   Promise.all([
@@ -75,6 +75,7 @@ router.get("/", auth.optional, function(req, res, next) {
         query._id = { $in: [] };
       }
 
+      console.log('item>>>>', Item)
       return Promise.all([
         Item.find(query)
           .limit(Number(limit))
